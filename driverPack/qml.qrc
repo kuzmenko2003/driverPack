@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>Autorization.qml</file>
+        <file>CardDriver.qml</file>
     </qresource>
 </RCC>

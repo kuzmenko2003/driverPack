@@ -10,31 +10,24 @@ Rectangle{
         font.pointSize: parent.height/40
 
         anchors.top: parent.top
-        anchors.left: loginRec.left
+        anchors.left: login.left
         anchors.topMargin: parent.height/20
     }
 
-    Rectangle{
-        id:loginRec
-
-        color: "#DCDCDC"
-        radius: 8
+    TextField{
+        id:login
+        font.pointSize: height/2
+        horizontalAlignment: Text.AlignHCenter
 
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top:loginText.bottom
-        //anchors.topMargin: parent.height/30
 
         width: parent.width/1.3
         height: parent.height/15
 
-        TextInput{
-            id:login
-            font.pointSize: parent.height/2
-            maximumLength: 30
-            horizontalAlignment: Text.AlignHCenter
-
-
-            anchors.fill: parent
+        background: Rectangle{
+            color: "#DCDCDC"
+            radius: 8
         }
     }
 
@@ -43,40 +36,35 @@ Rectangle{
         text: qsTr("пароль:")
         font.pointSize: parent.height/40
 
-        anchors.top: loginRec.bottom
-        anchors.left: passwdRec.left
+        anchors.top: login.bottom
+        anchors.left: passwd.left
         anchors.topMargin: parent.height/30
     }
 
-    Rectangle{
-        id:passwdRec
-
-        color: "#DCDCDC"
-        radius: 8
-
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.top:passwdText.bottom
-        //anchors.topMargin: parent.height/20
-
-        width: parent.width/1.3
-        height: parent.height/15
-
-        TextInput{
+        TextField{
             id:passwd
-            font.pointSize: parent.height/2
+            font.pointSize:height/2
             maximumLength: 30
             horizontalAlignment: Text.AlignHCenter
 
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:passwdText.bottom
 
-            anchors.fill: parent
+            width: parent.width/1.3
+            height: parent.height/15
+
+            background: Rectangle{
+                color: "#DCDCDC"
+                radius: 8
+            }
         }
-    }
+
     Button{
         id:comeIn
         text: qsTr("autorization")
 
-        anchors.right: passwdRec.right
-        anchors.top: passwdRec.bottom
+        anchors.right: passwd.right
+        anchors.top: passwd.bottom
         anchors.topMargin: parent.height/20
 
         width: parent.width/5
