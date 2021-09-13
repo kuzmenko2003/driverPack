@@ -87,7 +87,7 @@ Rectangle{
         wrapMode: Text.WordWrap
 
 
-        width: passwdRec.width
+        width: passwd.width
 
         anchors.top: comeIn.bottom
         anchors.horizontalCenter: parent.horizontalCenter
