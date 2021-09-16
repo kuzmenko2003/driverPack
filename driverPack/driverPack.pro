@@ -1,4 +1,4 @@
-QT += quick core sql widgets
+QT += quick sql core
 
 CONFIG += c++11
 
@@ -8,6 +8,8 @@ CONFIG += c++11
 
 SOURCES += \
         autorization.cpp \
+        driverslist.cpp \
+        driversmodel.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -24,4 +26,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    autorization.h
+    autorization.h \
+    driverslist.h \
+    driversmodel.h

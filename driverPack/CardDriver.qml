@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 
 Rectangle{
+    property int id: 0
     property string name: ""
     property string middleName: ""
     property string passportSerial: ""
@@ -14,6 +15,7 @@ Rectangle{
     property string email: ""
     property string photo: ""
     property string description: ""
+
 
     StackView{
         id:mainStackView

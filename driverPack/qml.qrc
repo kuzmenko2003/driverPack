@@ -3,5 +3,7 @@
         <file>main.qml</file>
         <file>Autorization.qml</file>
         <file>CardDriver.qml</file>
+        <file>AllDriversForm.qml</file>
+        <file>DriverForm.qml</file>
     </qresource>
 </RCC>

@@ -10,7 +10,7 @@ ApplicationWindow{
 
     StackView{
         id:mainStackView
-        initialItem: carDriverPage
+        initialItem: allDrivers
         anchors.fill: parent
     }
 
@@ -21,9 +21,18 @@ ApplicationWindow{
             anchors.fill: parent
         }
     }
+
+    Page{
+        id:allDrivers
+        visible: true
+        AllDriversForm{
+            anchors.fill:parent
+        }
+    }
+
     Page{
         id:carDriverPage
-        visible: true
+        visible: false
         CardDriver{
             anchors.fill: parent
         }

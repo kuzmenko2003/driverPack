@@ -5,6 +5,9 @@
 
 #include "autorization.h"
 
+#include "driversmodel.h"
+#include "driverslist.h"
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -12,8 +15,16 @@ int main(int argc, char *argv[])
 #endif
 
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
+
+    qmlRegisterType<DriversModel>("Driver",1,0,"DriverModel");
+    qmlRegisterUncreatableType<DriversList>("Driver",1,0,"DriverList",
+                                            QStringLiteral("not"));
+
+
+    DriversList driverList;
+    engine.rootContext()->setContextProperty(QStringLiteral("driverList"), &driverList);
+
 
     autorization autorizaition;
     engine.rootContext()->setContextProperty(QStringLiteral("autorization"),&autorizaition);
