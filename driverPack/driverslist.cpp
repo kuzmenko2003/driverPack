@@ -2,6 +2,8 @@
 #include <QSqlQuery>
 #include <QVariant>
 
+#include <QDebug>
+
 #include "driverslist.h"
 #include "initializationdatabase.h"
 
@@ -42,9 +44,53 @@ bool DriversList::setItemAt(int index, const DriverItem &item)
        return true;
 }
 
+void DriversList::moreDetails(int idDriver)
+{
+    for(int i = 0;i<mItems.count();i++){
+        if(idDriver == mItems[i].id){
+            getDetails(mItems[i].id,mItems[i].name,mItems[i].middleName,
+                       mItems[i].passportSerial,mItems[i].passportNumber,
+                       mItems[i].postcode,mItems[i].address,mItems[i].addressLife,
+                       mItems[i].company,mItems[i].jobname,mItems[i].phone,
+                       mItems[i].email,mItems[i].photo,mItems[i].description);
+        }
+    }
+}
+
+void DriversList::saveDataUser(int _idDriver, QString _name, QString _middleName,
+                               QString _passportSerial, QString _passportNumber,
+                               QString _postcode, QString _address, QString _addressLife,
+                               QString _company, QString _jobname, QString _phone,
+                               QString _email, QString _photo, QString _description)
+{
+    _photo.remove("http://driverpack/photo/");
+    QString command;
+    command += "UPDATE drivers SET ";
+    command += "name = \'"+_name+"\',";
+    command += "middlename = \'"+_middleName+"\',";
+    command += "`passport serial` = \'"+_passportSerial+"\',";
+    command += "`passport number` = \'"+_passportNumber+"\',";
+    command += "postcode = \'"+_postcode+"\',";
+    command += "address = \'"+_address+"\',";
+    command += "`address life` = \'"+_addressLife+"\',";
+    command += "company = \'"+_company+"\',";
+    command += "jobname = \'"+_jobname+"\',";
+    command += "phone = \'"+_phone+"\',";
+    command += "email = \'"+_email+"\',";
+    command += "photo = \'"+_photo+"\',";
+    command += "description = \'"+_description+"\'";
+    command += "WHERE id = "+QString::number(_idDriver);
+    usersDb.open();
+    QSqlQuery query;
+    query.exec(command);
+    usersDb.close();
+    fillUsersList();
+}
+
 void DriversList::fillUsersList()
 {
     usersDb.open();
+    mItems.clear();
     QSqlQuery query;
     query.exec("SELECT id,name,middlename,`passport serial`,`passport number`,postcode,"
                "address,`address life`,company,jobname,phone,email,photo,description FROM drivers");

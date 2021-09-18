@@ -2,20 +2,30 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 
 Rectangle{
-    property int id: 0
-    property string name: ""
-    property string middleName: ""
-    property string passportSerial: ""
-    property string passportNumber: ""
-    property string postcode: ""
-    property string address: ""
-    property string addressLife: ""
-    property string company: ""
-    property string jobname: ""
-    property string phone: ""
-    property string email: ""
+    property int idDriver: 0
     property string photo: ""
-    property string description: ""
+
+    Connections{
+        target: driverList
+        function onGetDetails(_idDriver,_name,_middleName,_passportSerial,_passportNumber,
+                              _postcode,_address,_addressLife,_company,
+                              _jobname,_phone,_email,_photo,_description){
+            idDriver = _idDriver
+            nameInput.text = _name
+            middleNameInput.text  = _middleName
+            passportSerialInput.text  = _passportSerial
+            passportNumberInput.text = _passportNumber
+            postcodeInput.text  = _postcode
+            addressInput.text  = _address
+            addressLifeInput.text  = _addressLife
+            companyInput.text  = _company
+            jobnameInput.text  = _jobname
+            phoneInput.text  = _phone
+            emailInput.text  = _email
+            photo  = _photo
+            descriptionInput.text  = _description
+        }
+    }
 
 
     StackView{
@@ -30,7 +40,7 @@ Rectangle{
 
         Image {
             id: ava
-            source: "file:///A:/Desktop/РЧ/Ресурсы/Сессия 2/drivers/drivers/photo/002-cool-5.png"
+            source: photo
             fillMode: Image.PreserveAspectFit
 
             anchors.top: parent.top
@@ -66,7 +76,7 @@ Rectangle{
         }
         TextField{
             id:nameInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
 
             horizontalAlignment: Text.AlignHCenter
             anchors.left: ava.right
@@ -93,7 +103,7 @@ Rectangle{
         }
         TextField{
             id:middleNameInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
 
             horizontalAlignment: Text.AlignHCenter
             anchors.left: ava.right
@@ -111,7 +121,7 @@ Rectangle{
 
         Text {
             id: passportSerialText
-            text: qsTr("серия и номер паспорта :")
+            text: qsTr("серия паспорта :")
             font.pointSize: parent.height/40
 
             anchors.top: middleNameInput.bottom
@@ -120,7 +130,7 @@ Rectangle{
         }
         TextField{
             id:passportSerialInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -137,8 +147,8 @@ Rectangle{
         }
 
         Text {
-            id: postcodeText
-            text: qsTr("почтовый индекс :")
+            id: passportNumberText
+            text: qsTr("номер паспорта :")
             font.pointSize: parent.height/40
 
             anchors.top: passportSerialInput.bottom
@@ -146,8 +156,35 @@ Rectangle{
             anchors.topMargin: parent.height/20
         }
         TextField{
+            id:passportNumberInput
+            font.pointSize: height/2.7
+            horizontalAlignment: Text.AlignHCenter
+
+            anchors.left: ava.right
+            anchors.top:passportNumberText.bottom
+            anchors.leftMargin: parent.width/20
+
+            width: parent.width/1.6
+            height: parent.height/15
+
+            background: Rectangle{
+                color: "#DCDCDC"
+                radius: 8
+            }
+        }
+
+        Text {
+            id: postcodeText
+            text: qsTr("почтовый индекс :")
+            font.pointSize: parent.height/40
+
+            anchors.top: passportNumberInput.bottom
+            anchors.left: nameInput.left
+            anchors.topMargin: parent.height/20
+        }
+        TextField{
             id:postcodeInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -175,38 +212,11 @@ Rectangle{
         }
         TextField{
             id:addressInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
             anchors.top:addressText.bottom
-            anchors.leftMargin: parent.width/20
-
-            width: parent.width/1.6
-            height: parent.height/15
-
-            background: Rectangle{
-                color: "#DCDCDC"
-                radius: 8
-            }
-        }
-
-        Text {
-            id: addressLifeText
-            text: qsTr("адрес проживания :")
-            font.pointSize: parent.height/40
-
-            anchors.top: addressInput.bottom
-            anchors.left: nameInput.left
-            anchors.topMargin: parent.height/20
-        }
-        TextField{
-            id:addressLifeInput
-            font.pointSize: height/2
-            horizontalAlignment: Text.AlignHCenter
-
-            anchors.left: ava.right
-            anchors.top:addressLifeText.bottom
             anchors.leftMargin: parent.width/20
 
             width: parent.width/1.6
@@ -256,7 +266,45 @@ Rectangle{
             }
 
             onClicked: {
+                driverList.saveDataUser(idDriver,nameInput.text,middleNameInput.text,
+                                        passportSerialInput.text,passportNumberInput.text,
+                                        postcodeInput.text,addressInput.text,addressLifeInput.text,
+                                        companyInput.text,jobnameInput.text,phoneInput.text,
+                                        emailInput.text, photo,descriptionInput.text)
+            }
+        }
 
+        Button{
+            id:exit
+
+            anchors.top: saveButton1.bottom
+            anchors.right: parent.right
+            anchors.margins: parent.width/40
+
+            width:height
+            height:parent.height/9
+            text: qsTr("exit")
+
+            background: Rectangle{
+                color: "#DCDCDC"
+                radius: 8
+            }
+
+            onClicked: {
+                appEngine.toAllDriversFormSlot();
+                idDriver = 0
+                nameInput.text = ""
+                middleNameInput.text  = ""
+                passportSerialInput.text  = ""
+                postcodeInput.text  = ""
+                addressInput.text  = ""
+                addressLifeInput.text  = ""
+                companyInput.text  = ""
+                jobnameInput.text  = ""
+                phoneInput.text  = ""
+                emailInput.text  = ""
+                photo  = ""
+                descriptionInput.text  = ""
             }
         }
 
@@ -266,8 +314,8 @@ Rectangle{
         visible: false
 
         Text {
-            id: companyText
-            text: qsTr("место работы :")
+            id: addressLifeText
+            text: qsTr("адрес проживания :")
             font.pointSize: parent.height/40
 
             anchors.top: parent.top
@@ -275,8 +323,35 @@ Rectangle{
             anchors.topMargin: parent.height/20
         }
         TextField{
+            id:addressLifeInput
+            font.pointSize: height/2.7
+            horizontalAlignment: Text.AlignHCenter
+
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top:addressLifeText.bottom
+            anchors.leftMargin: parent.width/20
+
+            width: parent.width/1.6
+            height: parent.height/15
+
+            background: Rectangle{
+                color: "#DCDCDC"
+                radius: 8
+            }
+        }
+
+        Text {
+            id: companyText
+            text: qsTr("место работы :")
+            font.pointSize: parent.height/40
+
+            anchors.top: addressLifeInput.bottom
+            anchors.left: companyInput.left
+            anchors.topMargin: parent.height/20
+        }
+        TextField{
             id:companyInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -303,7 +378,7 @@ Rectangle{
         }
         TextField{
             id:jobnameInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -330,7 +405,7 @@ Rectangle{
         }
         TextField{
             id:phoneInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -356,7 +431,7 @@ Rectangle{
         }
         TextField{
             id:emailInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -383,7 +458,7 @@ Rectangle{
         }
         TextField{
             id:descriptionInput
-            font.pointSize: height/2
+            font.pointSize: height/2.7
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -437,7 +512,11 @@ Rectangle{
             }
 
             onClicked: {
-
+                driverList.saveDataUser(idDriver,nameInput.text,middleNameInput.text,
+                                        passportSerialInput.text,passportNumberInput.text,
+                                        postcodeInput.text,addressInput.text,addressLifeInput.text,
+                                        companyInput.text,jobnameInput.text,phoneInput.text,
+                                        emailInput.text, photo,descriptionInput.text)
             }
         }
     }

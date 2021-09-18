@@ -6,6 +6,8 @@ Rectangle{
     property string middleName: ""
     property string photo: ""
 
+    property int idDriver: 0
+
     color: "#DCDCDC"
     radius: 14
 
@@ -55,6 +57,11 @@ Rectangle{
         background: Rectangle{
             color: "#A9A9A9"
             radius: 8
+        }
+
+        onClicked: {
+            driverList.moreDetails(idDriver)
+            appEngine.toCardDriverFormSlot();
         }
     }
 

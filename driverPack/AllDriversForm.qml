@@ -23,6 +23,8 @@ Rectangle{
                 name:model.name
                 middleName:model.middleName
                 photo:model.photo
+
+                idDriver:model.id
             }
         }
     }

@@ -8,6 +8,8 @@
 #include "driversmodel.h"
 #include "driverslist.h"
 
+#include "appengine.h"
+
 int main(int argc, char *argv[])
 {
 #if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
@@ -16,6 +18,9 @@ int main(int argc, char *argv[])
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    AppEngine appEngine;
+    engine.rootContext()->setContextProperty(QStringLiteral("appEngine"), &appEngine);
 
     qmlRegisterType<DriversModel>("Driver",1,0,"DriverModel");
     qmlRegisterUncreatableType<DriversList>("Driver",1,0,"DriverList",

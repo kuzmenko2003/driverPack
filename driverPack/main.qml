@@ -12,6 +12,15 @@ ApplicationWindow{
         id:mainStackView
         initialItem: allDrivers
         anchors.fill: parent
+        Connections{
+            target: appEngine
+            function onToAllDriversFormSignal(){
+                mainStackView.pop()
+            }
+            function onToCardDriverFormSignal(){
+                mainStackView.push(carDriverPage)
+            }
+        }
     }
 
     Page{
