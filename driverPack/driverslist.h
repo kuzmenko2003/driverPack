@@ -10,6 +10,7 @@ struct DriverItem{
     QString name;
     QString middleName;
     QString passportSerial;
+    QString passportNumber;
     QString postcode;
     QString address;
     QString addressLife;
@@ -36,6 +37,8 @@ signals:
 public slots:
 
 private:
+    void fillUsersList();
+
     QVector<DriverItem> mItems;
 
 };

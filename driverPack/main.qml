@@ -24,7 +24,7 @@ ApplicationWindow{
 
     Page{
         id:allDrivers
-        visible: true
+        //visible: false
         AllDriversForm{
             anchors.fill:parent
         }

@@ -10,6 +10,7 @@ SOURCES += \
         autorization.cpp \
         driverslist.cpp \
         driversmodel.cpp \
+        initializationdatabase.cpp \
         main.cpp
 
 RESOURCES += qml.qrc
@@ -28,4 +29,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 HEADERS += \
     autorization.h \
     driverslist.h \
-    driversmodel.h
+    driversmodel.h \
+    initializationdatabase.h

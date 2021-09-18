@@ -10,6 +10,7 @@
 #include <QDateTime>
 
 #include "autorization.h"
+#include "initializationdatabase.h"
 
 QSqlDatabase autorization_database;
 QTimer *timerAutorization;
@@ -23,16 +24,10 @@ autorization::autorization()
     /*
         connect to the database that contains users data
     */
-    autorization_database = QSqlDatabase::addDatabase("QMYSQL");
-    autorization_database.setHostName("127.0.0.1");
-    autorization_database.setDatabaseName("driverpack");
-    autorization_database.setUserName("mysql");
-    autorization_database.setPassword("mysql");
-    autorization_database.setPort(3306);
 
-    /*
-        set the defaul values
-    */
+    autorization_database = initializationDatabase::instance().getUserDatabase();
+
+
 }
 
 autorization::~autorization()

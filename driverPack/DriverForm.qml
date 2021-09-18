@@ -11,7 +11,7 @@ Rectangle{
 
     Image {
         id: ava
-        source: "file:///A:/Downloads/watch.png"
+        source: photo
 
         width: height
         height: parent.height/1.3

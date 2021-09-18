@@ -30,6 +30,8 @@ QVariant DriversModel::data(const QModelIndex &index, int role) const
         return QVariant(item.middleName);
     case PassportSerialRole:
         return QVariant(item.passportSerial);
+    case PassportNumberRole:
+        return QVariant(item.passportNumber);
     case PostcodeRole:
         return QVariant(item.postcode);
     case AddressRole:
@@ -70,6 +72,9 @@ bool DriversModel::setData(const QModelIndex &index, const QVariant &value, int 
         break;
     case PassportSerialRole:
         item.passportSerial = value.toString();
+        break;
+    case PassportNumberRole:
+        item.passportNumber = value.toString();
         break;
     case PostcodeRole:
         item.postcode = value.toString();
@@ -122,6 +127,7 @@ QHash<int, QByteArray> DriversModel::roleNames() const
     names[NameRole] = "name";
     names[MiddleNameRole] = "middleName";
     names[PassportSerialRole] = "passportSerial";
+    names[PassportNumberRole] = "passportNumber";
     names[PostcodeRole] = "postCode";
     names[AddressRole] = "address";
     names[AddressLifeRole] = "addressLife";

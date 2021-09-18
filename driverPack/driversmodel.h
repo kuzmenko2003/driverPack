@@ -18,6 +18,7 @@ public:
         NameRole,
         MiddleNameRole,
         PassportSerialRole,
+        PassportNumberRole,
         PostcodeRole,
         AddressRole,
         AddressLifeRole,

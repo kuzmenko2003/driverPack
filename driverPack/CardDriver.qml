@@ -6,6 +6,7 @@ Rectangle{
     property string name: ""
     property string middleName: ""
     property string passportSerial: ""
+    property string passportNumber: ""
     property string postcode: ""
     property string address: ""
     property string addressLife: ""

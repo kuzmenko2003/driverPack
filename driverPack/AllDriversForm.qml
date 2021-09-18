@@ -22,6 +22,7 @@ Rectangle{
                 height: scrollForm.height/6
                 name:model.name
                 middleName:model.middleName
+                photo:model.photo
             }
         }
     }
