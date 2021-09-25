@@ -1,9 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
+import QtQuick.Dialogs 1.2
 
 Rectangle{
     property int idDriver: 0
     property string photo: ""
+
+    property bool isRoot: false
 
     Connections{
         target: driverList
@@ -24,6 +27,13 @@ Rectangle{
             emailInput.text  = _email
             photo  = _photo
             descriptionInput.text  = _description
+        }
+    }
+
+    Connections{
+        target: appEngine
+        function onToRootModeSignal(){
+            isRoot = true
         }
     }
 
@@ -52,6 +62,7 @@ Rectangle{
         }
         Button{
             text: qsTr("изменить")
+            visible: isRoot
 
             anchors.top:ava.bottom
             anchors.left: ava.left
@@ -66,6 +77,19 @@ Rectangle{
             }
         }
 
+        /*
+        FileDialog {
+             id: fileDialogLoad
+             folder: "."
+             title: "Choose a file to open"
+             selectMultiple: false
+             nameFilters: [ "Image files (*.png *.jpg)", "All files (*)" ]
+             onAccepted: {
+                 photo = fileDialogLoad.fileUrl;
+             }
+         }
+
+         */
         Text {
             id: nameText
             text: qsTr("имя :")
@@ -77,6 +101,7 @@ Rectangle{
         TextField{
             id:nameInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
 
             horizontalAlignment: Text.AlignHCenter
             anchors.left: ava.right
@@ -104,6 +129,7 @@ Rectangle{
         TextField{
             id:middleNameInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
 
             horizontalAlignment: Text.AlignHCenter
             anchors.left: ava.right
@@ -131,6 +157,7 @@ Rectangle{
         TextField{
             id:passportSerialInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -158,6 +185,7 @@ Rectangle{
         TextField{
             id:passportNumberInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -185,6 +213,7 @@ Rectangle{
         TextField{
             id:postcodeInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -213,6 +242,7 @@ Rectangle{
         TextField{
             id:addressInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.left: ava.right
@@ -251,6 +281,7 @@ Rectangle{
 
         Button{
             id:saveButton1
+            visible: isRoot
 
             anchors.top: parent.top
             anchors.right: parent.right
@@ -305,6 +336,7 @@ Rectangle{
                 emailInput.text  = ""
                 photo  = ""
                 descriptionInput.text  = ""
+                isRoot = false
             }
         }
 
@@ -325,6 +357,7 @@ Rectangle{
         TextField{
             id:addressLifeInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -352,6 +385,7 @@ Rectangle{
         TextField{
             id:companyInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -379,6 +413,7 @@ Rectangle{
         TextField{
             id:jobnameInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -406,6 +441,7 @@ Rectangle{
         TextField{
             id:phoneInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -432,6 +468,7 @@ Rectangle{
         TextField{
             id:emailInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -459,6 +496,7 @@ Rectangle{
         TextField{
             id:descriptionInput
             font.pointSize: height/2.7
+            readOnly: !isRoot
             horizontalAlignment: Text.AlignHCenter
 
             anchors.horizontalCenter: parent.horizontalCenter
@@ -498,6 +536,7 @@ Rectangle{
         Button{
             id:saveButton2
             text:qsTr("save")
+            visible: isRoot
 
             anchors.top: parent.top
             anchors.right: parent.right

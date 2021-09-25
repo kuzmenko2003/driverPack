@@ -19,16 +19,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
 
-    AppEngine appEngine;
-    engine.rootContext()->setContextProperty(QStringLiteral("appEngine"), &appEngine);
+    AppEngine *appEngine = &AppEngine::appEngineOn();
+    engine.rootContext()->setContextProperty(QStringLiteral("appEngine"), appEngine);
 
     qmlRegisterType<DriversModel>("Driver",1,0,"DriverModel");
     qmlRegisterUncreatableType<DriversList>("Driver",1,0,"DriverList",
                                             QStringLiteral("not"));
 
 
-    DriversList driverList;
-    engine.rootContext()->setContextProperty(QStringLiteral("driverList"), &driverList);
+    DriversList *driverList = &DriversList::instanse();
+    engine.rootContext()->setContextProperty(QStringLiteral("driverList"),driverList);
 
 
     autorization autorizaition;

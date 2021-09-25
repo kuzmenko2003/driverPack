@@ -11,6 +11,8 @@
 
 #include "autorization.h"
 #include "initializationdatabase.h"
+#include "appengine.h"
+#include "driverslist.h"
 
 QSqlDatabase autorization_database;
 QTimer *timerAutorization;
@@ -121,44 +123,65 @@ void autorization::saveResultTimerAtCloseApplication(QString time)
 */
 void autorization::toAutorization(QString login, QString passwd)
 {
+    qDebug()<<QCoreApplication::applicationDirPath();
     autorization_database.open();
     QSqlQuery query;
-    query.exec("SELECT login,password FROM users");
+    query.exec("SELECT id,login,password,position FROM drivers");
     while (query.next()) {
-        if(query.value(0).toString() == login && query.value(1).toString() == passwd && isCanAutorization){
+        if(query.value("login").toString() == login && query.value("password").toString() == passwd && isCanAutorization){
             /*
                 user log in to acccount
             */
             qDebug()<<"come in ";
-        }else{
-            if(attempts>=3){
-                /*
-                    user losed all attempts
-                    if user has spent attempts now the timer starts for a minute
-                    and if the timer is already started the user is shows how long he has to wait
-                */
-                if(isCanAutorization){
-                    setTimerToUnblockAutorization(1000*60);
-                    sentMessage("вы ввели пароль неправильно 3 раза , подождите минуту");
-                }else {
-                    QString remainingTime = QString::number(timerAutorization->remainingTime());
 
-                    if(remainingTime.count() == 5)
-                        remainingTime.remove(2,3);
-                    else
-                        remainingTime.remove(1,3);
-
-                    sentMessage("вы ввели пароль неправильно 3 раза , подождите "+remainingTime+" сек");
-                }
+            /*
+            If user have status is root then he can edit and watch information about user
+            become he go to secreen with list users
+            User can watch information about himself
+            become he go to secreen with himself information
+            */
+            AppEngine *appEngine = &AppEngine::appEngineOn();
+            if(query.value("position").toString() == "root"){
+                appEngine->toAllDriversFormAfterAutorizationSlot();
             }else{
-                /*
-                    user enter invalid login or password
-                */
-                qDebug()<<"мимо";
-                attempts++;
-                sentMessage("логин или пароль не правельный");
+                appEngine->toCardDriverFormSlot();
+                DriversList *drList = &DriversList::instanse();
+                drList->moreDetails(query.value("id").toInt());
             }
+
+            autorization_database.close();
+
+            attempts = 0;
+            return;
+        }else{
+
         }
     }
-    autorization_database.close();
+    if(attempts>=3){
+        /*
+            user losed all attempts
+            if user has spent attempts now the timer starts for a minute
+            and if the timer is already started the user is shows how long he has to wait
+        */
+        if(isCanAutorization){
+            setTimerToUnblockAutorization(1000*60);
+            sentMessage("вы ввели пароль неправильно 3 раза , подождите минуту");
+        }else {
+            QString remainingTime = QString::number(timerAutorization->remainingTime());
+
+            if(remainingTime.count() == 5)
+                remainingTime.remove(2,3);
+            else
+                remainingTime.remove(1,3);
+
+            sentMessage("вы ввели пароль неправильно 3 раза , подождите "+remainingTime+" сек");
+        }
+    }else{
+        /*
+            user enter invalid login or password
+        */
+        qDebug()<<"мимо";
+        attempts++;
+        sentMessage("логин или пароль не правельный");
+    }
 }

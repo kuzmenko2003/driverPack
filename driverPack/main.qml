@@ -10,13 +10,17 @@ ApplicationWindow{
 
     StackView{
         id:mainStackView
-        initialItem: allDrivers
+        initialItem: autorizationPage
         anchors.fill: parent
         Connections{
             target: appEngine
             function onToAllDriversFormSignal(){
                 mainStackView.pop()
             }
+            function onToAllDriversFormAfterAutorizationSignal(){
+                mainStackView.push(allDrivers)
+            }
+
             function onToCardDriverFormSignal(){
                 mainStackView.push(carDriverPage)
             }
@@ -25,7 +29,7 @@ ApplicationWindow{
 
     Page{
         id:autorizationPage
-        visible: false
+        //visible: false
         Autorization{
             anchors.fill: parent
         }
@@ -33,7 +37,7 @@ ApplicationWindow{
 
     Page{
         id:allDrivers
-        //visible: false
+        visible: false
         AllDriversForm{
             anchors.fill:parent
         }

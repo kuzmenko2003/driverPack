@@ -26,7 +26,10 @@ class DriversList : public QObject
 {
     Q_OBJECT
 public:
-    explicit DriversList(QObject *parent = nullptr);
+    static DriversList &instanse(){
+        static DriversList initialization;
+        return initialization;
+    }
 
     QVector<DriverItem> items() const;
     bool setItemAt(int index, const DriverItem &item);
@@ -45,6 +48,9 @@ public slots:
                       QString _jobname,QString _phone, QString _email, QString _photo,QString _description);
 
 private:
+    explicit DriversList(QObject *parent = nullptr);
+    DriversList(DriversList const&);
+
     void fillUsersList();
 
     QVector<DriverItem> mItems;

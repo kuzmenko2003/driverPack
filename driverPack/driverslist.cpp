@@ -63,7 +63,7 @@ void DriversList::saveDataUser(int _idDriver, QString _name, QString _middleName
                                QString _company, QString _jobname, QString _phone,
                                QString _email, QString _photo, QString _description)
 {
-    _photo.remove("http://driverpack/photo/");
+    _photo.remove("http://localhost/driverPack/photo/");
     QString command;
     command += "UPDATE drivers SET ";
     command += "name = \'"+_name+"\',";
@@ -108,7 +108,7 @@ void DriversList::fillUsersList()
         item.jobname = query.value("jobname").toString();
         item.phone = query.value("phone").toString();
         item.email = query.value("email").toString();
-        item.photo = "http://driverpack/photo/"+query.value("photo").toString();
+        item.photo = "http://localhost/driverPack/photo/"+query.value("photo").toString();
         item.description = query.value("description").toString();
         mItems.append(item);
     }

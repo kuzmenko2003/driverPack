@@ -10,7 +10,17 @@ void AppEngine::toAllDriversFormSlot()
     toAllDriversFormSignal();
 }
 
+void AppEngine::toAllDriversFormAfterAutorizationSlot()
+{
+    toAllDriversFormAfterAutorizationSignal();
+}
+
 void AppEngine::toCardDriverFormSlot()
 {
     toCardDriverFormSignal();
+}
+
+void AppEngine::toRootModeSlot()
+{
+    toRootModeSignal();
 }

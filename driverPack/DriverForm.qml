@@ -62,6 +62,7 @@ Rectangle{
         onClicked: {
             driverList.moreDetails(idDriver)
             appEngine.toCardDriverFormSlot();
+            appEngine.toRootModeSlot();
         }
     }
 
