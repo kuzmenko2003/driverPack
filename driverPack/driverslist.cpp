@@ -4,6 +4,10 @@
 
 #include <QDebug>
 
+#include <QDir>
+#include <QFile>
+#include <QFileInfoList>
+
 #include "driverslist.h"
 #include "initializationdatabase.h"
 
@@ -44,6 +48,9 @@ bool DriversList::setItemAt(int index, const DriverItem &item)
        return true;
 }
 
+/*
+get all information about user by his id
+*/
 void DriversList::moreDetails(int idDriver)
 {
     for(int i = 0;i<mItems.count();i++){
@@ -57,13 +64,16 @@ void DriversList::moreDetails(int idDriver)
     }
 }
 
+/*
+Save all information about user to database
+*/
 void DriversList::saveDataUser(int _idDriver, QString _name, QString _middleName,
                                QString _passportSerial, QString _passportNumber,
                                QString _postcode, QString _address, QString _addressLife,
                                QString _company, QString _jobname, QString _phone,
                                QString _email, QString _photo, QString _description)
 {
-    _photo.remove("http://localhost/driverPack/photo/");
+    _photo.remove("qrc:/resApp/photo/");
     QString command;
     command += "UPDATE drivers SET ";
     command += "name = \'"+_name+"\',";
@@ -87,6 +97,23 @@ void DriversList::saveDataUser(int _idDriver, QString _name, QString _middleName
     fillUsersList();
 }
 
+void DriversList::setProfileImageSlot()
+{
+    QDir photosDir(":/resApp/photo");
+    QFileInfoList dirContent = photosDir.entryInfoList(QStringList()<< "*",QDir::Files);
+
+    QString photos;
+    int countPhotos = 0;
+    for(int i = 0;i<dirContent.count();i++){
+        photos+=dirContent.at(i).fileName()+";";
+        countPhotos ++;
+    }
+    setProfileImageSignal(photos,countPhotos);
+}
+
+/*
+fill array information about users
+*/
 void DriversList::fillUsersList()
 {
     usersDb.open();
@@ -108,7 +135,7 @@ void DriversList::fillUsersList()
         item.jobname = query.value("jobname").toString();
         item.phone = query.value("phone").toString();
         item.email = query.value("email").toString();
-        item.photo = "http://localhost/driverPack/photo/"+query.value("photo").toString();
+        item.photo = "qrc:/resApp/photo/"+query.value("photo").toString();
         item.description = query.value("description").toString();
         mItems.append(item);
     }

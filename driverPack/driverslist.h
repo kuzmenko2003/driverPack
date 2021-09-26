@@ -40,12 +40,14 @@ signals:
     void getDetails(int _idDriver,QString _name,QString _middleName,QString _passportSerial,QString _passportNumber,
                     QString _postcode, QString _address,QString _addressLife,QString _company,
                     QString _jobname,QString _phone, QString _email, QString _photo,QString _description);
+    void setProfileImageSignal(QString photos,int countPhotos);
 
 public slots:
     void moreDetails(int idDriver);
     void saveDataUser(int _idDriver,QString _name,QString _middleName,QString _passportSerial,QString _passportNumber,
                       QString _postcode, QString _address,QString _addressLife,QString _company,
                       QString _jobname,QString _phone, QString _email, QString _photo,QString _description);
+    void setProfileImageSlot();
 
 private:
     explicit DriversList(QObject *parent = nullptr);

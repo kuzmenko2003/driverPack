@@ -1,9 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Autorization.qml</file>
-        <file>CardDriver.qml</file>
-        <file>AllDriversForm.qml</file>
-        <file>DriverForm.qml</file>
+        <file>qml/AllDriversForm.qml</file>
+        <file>qml/Autorization.qml</file>
+        <file>qml/CardDriver.qml</file>
+        <file>qml/DriverForm.qml</file>
+        <file>qml/main.qml</file>
     </qresource>
 </RCC>
