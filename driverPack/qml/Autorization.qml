@@ -4,6 +4,11 @@ import QtQuick.Controls 2.5
 Rectangle{
     id:root
 
+    gradient: Gradient{
+        GradientStop{position: 0.0;color: "#ffffff"}
+        GradientStop{position: 1.0;color: "#b7b7b7"}
+    }
+
     Text {
         id:loginText
         text: qsTr("логин:")
@@ -26,7 +31,7 @@ Rectangle{
         height: parent.height/15
 
         background: Rectangle{
-            color: "#DCDCDC"
+            color: "#d3dcff"
             radius: 8
         }
     }
@@ -54,7 +59,7 @@ Rectangle{
             height: parent.height/15
 
             background: Rectangle{
-                color: "#DCDCDC"
+                color: "#d3dcff"
                 radius: 8
             }
         }
@@ -71,7 +76,7 @@ Rectangle{
         height: parent.height/15
 
         background: Rectangle{
-            color: "#DCDCDC"
+            color: "#d3dcff"
             radius: 8
         }
 

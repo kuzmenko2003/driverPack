@@ -4,6 +4,10 @@ import QtQuick.Controls 2.5
 import Driver 1.0
 
 Rectangle{
+    gradient: Gradient{
+        GradientStop{position: 0.0;color: "#ffffff"}
+        GradientStop{position: 1.0;color: "#b7b7b7"}
+    }
 
     ScrollView{
         id:scrollForm

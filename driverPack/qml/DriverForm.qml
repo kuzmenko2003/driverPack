@@ -8,8 +8,13 @@ Rectangle{
 
     property int idDriver: 0
 
-    color: "#DCDCDC"
+    //color: "#DCDCDC"
     radius: 14
+
+    gradient: Gradient{
+        GradientStop {position: 0.0;color: "#ffffff"}
+        GradientStop {position: 1.0;color: "#c3a0ef"}
+    }
 
     Image {
         id: ava
@@ -55,7 +60,8 @@ Rectangle{
         width: parent.width/6
 
         background: Rectangle{
-            color: "#A9A9A9"
+           color: "#d3dcff"
+
             radius: 8
         }
 
